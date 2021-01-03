@@ -28,6 +28,10 @@ const ItemSlider = styled.div`
     justify-content: center;
   }
 
+  .slick-initialized .slick-slide{
+    width: 729px !important;
+  }
+
   .landscape{
       width: 100%;
       height: 500px;
@@ -49,11 +53,11 @@ function SlideContainer() {
           <Slider {...settings}>
             <div>
               <h3 className="hide">1</h3>
-              <img class="landscape" alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1" src={img1}></img>
+              <img className="landscape" alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1" src={img1}></img>
             </div>
             <div>
               <h3 className="hide">2</h3>
-              <img class="landscape" alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1" src={img2}></img>
+              <img className="landscape" alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1" src={img2}></img>
             </div>
             <div>
               <h3 className="hide">3</h3>
