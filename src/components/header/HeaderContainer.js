@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function HeaderContainer() {
     return (
@@ -7,10 +8,10 @@ function HeaderContainer() {
                 <div className="inner">
                     <div className="menu-group">
                         <div className="logo">
-                            <a href="#">
+                            <Link to="/">
                                 <span class="sr-only">당근마켓</span>
                                 <img class="fixed-logo" alt="당근마켓" src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/logo-basic-24b18257ac4ef693c02233bf21e9cb7ecbf43ebd8d5b40c24d99e14094a44c81.svg"></img>
-                            </a>
+                            </Link>
                         </div>
                             <div className="search-input-wrap">
                                 <input className="search" type="text" placeholder="동네 이름,물품명 등을 검색해보세요!"/>

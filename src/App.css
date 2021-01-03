@@ -101,6 +101,10 @@ header .logo {
   border: 1px solid #e9ecef;
   border-radius: 5px;
 }
+
+.search-input-wrap a{
+  cursor: pointer;
+}
 header .search{
   border: none;
   width: 300px;
@@ -411,6 +415,11 @@ a {
   text-overflow: ellipsis;
   margin-bottom: 4px;
   line-height: 1.5;
+}
+
+.view-more{
+  text-decoration: none;
+  color: black;
 }
 
 /* FOOTER */
