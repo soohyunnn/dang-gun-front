@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import loginPath from '../../img/login3.svg'
+import joinPath from '../../img/join.svg'
 
 function HeaderContainer() {
     return (
@@ -20,14 +22,14 @@ function HeaderContainer() {
                                 </a>                            
                             </div>
                             <div className="Appdownload">
-                                <a className="AppStore">
-                                    <img className="fixed-apple-store" alt="App Store" src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/apple-store-3a664174124650d63cae365bc55586fc5ff27b822b1b97788fc4af77d73d00c8.svg" />
-                                    <div>App Store</div>
-                                </a>
-                                <a className="GooglePlay">
-                                    <img className="fixed-google-play" alt="Google Play" src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/google-play-c9ad0fc573cd01e2b982df5de6709a3d8d7cec8d9b58a5c08db7da0b92a32a75.svg" />
-                                    <div>Google Play</div>
-                                </a>
+                                <Link to="/" className="login">
+                                    <img className="fixed-apple-store" alt="App Store" src={loginPath} />
+                                    <div>Login</div>
+                                    </Link>
+                                <Link to="/" className="join">
+                                    <img className="fixed-google-play" alt="Google Play" src={joinPath} />
+                                    <div>Join</div>
+                                </Link>
                             </div>
                         </div>
                 
