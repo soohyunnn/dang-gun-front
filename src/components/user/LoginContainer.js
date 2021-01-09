@@ -2,12 +2,14 @@ import React from 'react';
 import {useSelector, useDispatch } from "react-redux";
 import {inputloginchange, inputjoinchange, addUser, loginUser} from "../../modules/loginJoinInputs";
 import {closemodal} from '../../modules/modal';
+import {addUserAPI} from '../../axios';
 import xbutton from '../../img/xbutton.png'
 
 function LoginContainer() {
 
     const singInUp = useSelector((state) => state.modal.singInUp);
     const {login, join} = useSelector((state) => state.loginJoinInputs);
+   
     console.log('LoginContainer-singInUp', singInUp);
     console.log('LoginContainer-login', login);
     console.log('LoginContainer-join', join);
@@ -37,7 +39,7 @@ function LoginContainer() {
     }
 
     const onCLickAddUser = () => {
-
+      addUserAPI('/user/save', join);
       //DB 전송 후 input값 초기화
       dispatch(addUser(join));
     }

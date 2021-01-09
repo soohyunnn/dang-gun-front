@@ -1042,3 +1042,10 @@ footer .footer-container #social .social-list .social-list-item .footer-social-l
   font-size: 17px;
   font-weight: 500;
 }
+
+.StylelessButton-ActionButton button{
+  border: none;
+  background: none;
+  color: white;
+  font-size: 17px;
+}
