@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FooterContainer from '../footer/FooterContainer';
 import HeaderContainer from '../header/HeaderContainer';
 
 function AddPostContainer() {
+    const [uploadname, setUploadName] = useState(null);
+    console.log('start', uploadname)
+
+    const fileupload = () => {
+        console.log('파일 바꼈다!!')
+        let fileObj = document.getElementById('myfile').files[0].name;
+        console.log('fileObj',fileObj);
+        setUploadName(fileObj);
+        console.log('change',uploadname)
+        
+        
+    }
+
     return (
         <>
             <HeaderContainer></HeaderContainer>
@@ -15,9 +28,14 @@ function AddPostContainer() {
                         <input className="price" type="text" placeholder="금액을 입력해 주세요."/>
                         <textarea className="content" placeholder="내용을 입력하세요."></textarea>
                         <div className="upload-btn-wrapper">
-                            
+                            <div className="upload-name">
+                            <input  value={uploadname != null ? uploadname : '이미지를 업로드 해주세요.'} disabled>
+                                
+                            </input>
+                            <button className={uploadname != null ? '' : 'delete-button'}>X</button>
+                            </div>
                             <button className="btn">Upload a file</button>
-                            <input type="file" name="myfile" />
+                            <input type="file" id="myfile" className="file-hidden" multiple onChange={fileupload}/>
                         </div>
                         <div>
                             <button className="add_button">등록</button>

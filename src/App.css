@@ -888,12 +888,34 @@ footer .footer-container #social .social-list .social-list-item .footer-social-l
   /* font-weight: bold; */
 }
 
+.upload-btn-wrapper .upload-name {
+  justify-content: start !important; 
+  display: inline-block;
+    width: 575px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #e9ecef;
+}
+
+.upload-name input ,
+.upload-name button{
+  border: none;
+  background: white;
+}
+
+
+
+
 .upload-btn-wrapper input[type=file] {
   font-size: 100px;
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
+}
+
+.delete-button {
+  display: none;
 }
 
 #add-post div{
