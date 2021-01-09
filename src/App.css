@@ -126,6 +126,8 @@ header .search{
   border-radius: 5px;
   text-decoration: none;
   color: black;
+  background: white;
+  cursor: pointer;
 }
 .login img , .join img{
   width: 21px;
@@ -133,6 +135,7 @@ header .search{
 
 .login img , .login div,
 .join img , .join div{
+  margin-top: 3px;
   padding: 10px;
   display: inline-block;
   color: #495057;
@@ -902,4 +905,117 @@ footer .footer-container #social .social-list .social-list-item .footer-social-l
   border-radius: 5px;
   padding: 7px;
   width: 66px;
+}
+
+
+/* opem modal*/
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.modal-wrapper-none {
+  display: none;
+}
+
+
+.modal-wrapper p {
+  text-align: center;
+  color: rgb(140, 140, 140);
+  cursor: pointer;
+}
+
+.login-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 24px 16px;
+  border-radius: 4px;
+  width: 375px;
+}
+
+.modal-title {
+  font-size: 17px;
+  letter-spacing: -0.5px;
+  line-height: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin: 24px 0px 20px;
+}
+
+.modal p {
+  font-size: 16px;
+}
+
+.join-input {
+  display: none;
+}
+
+.close-wrapper {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.close-wrapper button {
+  border: none;
+  background: none;
+}
+
+.login-modal input {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0em.3px;
+  line-height: 23px;
+  background: rgb(245, 245, 247);
+  margin: 10px 0px;
+  padding: 10px 10px;
+  border: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  caret-color: rgb(53, 53, 53);
+}
+
+.ButtonBlock {
+  float: left;
+  margin: 39px 30px 0px 0px;
+}
+
+.Self {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 138, 61);
+  box-sizing: border-box;
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 10px 0px;
+}
+
+.StylelessButton-ActionButton {
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer;
+  color: rgb(246, 246, 246);
+  font-size: 17px;
+  font-weight: 500;
 }

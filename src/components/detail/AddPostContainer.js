@@ -1,7 +1,6 @@
 import React from 'react';
 import FooterContainer from '../footer/FooterContainer';
 import HeaderContainer from '../header/HeaderContainer';
-import SlideContainer from './SlideContainer';
 
 function AddPostContainer() {
     return (

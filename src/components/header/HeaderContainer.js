@@ -2,8 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import loginPath from '../../img/login3.svg'
 import joinPath from '../../img/join.svg'
+import LoginContainer from '../user/LoginContainer';
+import { useSelector, useDispatch } from "react-redux";
+import {changloginvisible, changjoinvisible} from '../../modules/modal';
 
 function HeaderContainer() {
+
+    const singInUp = useSelector((state) => state.singInUp);
+    console.log('HeaderContainer-singInUp', singInUp)
+    
+    const dispatch = useDispatch();
+    const showModal = (value) => {
+        if(value === 1 ){
+            dispatch(changloginvisible(value));
+        }
+        if(value === 2 ){
+            dispatch(changjoinvisible(value));
+        }
+        
+    }
+
     return (
         <div>
             <header className="section">
@@ -21,16 +39,18 @@ function HeaderContainer() {
                                     <img class="fixed-search-icon" alt="Search" src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/search-icon-7008edd4f9aaa32188f55e65258f1c1905d7a9d1a3ca2a07ae809b5535380f14.svg" />
                                 </a>                            
                             </div>
+                            
                             <div className="Appdownload">
-                                <Link to="/" className="login">
+                                <button className="login" onClick={() => showModal(1)}>
                                     <img className="fixed-apple-store" alt="App Store" src={loginPath} />
                                     <div>Login</div>
-                                    </Link>
-                                <Link to="/" className="join">
+                                </button>
+                                <button className="join" onClick={() => showModal(2)}>
                                     <img className="fixed-google-play" alt="Google Play" src={joinPath} />
                                     <div>Join</div>
-                                </Link>
+                                </button>
                             </div>
+                            <LoginContainer></LoginContainer>
                         </div>
                 
                     {/* <div id="toggle-btn">Header Menu Toggle Button</div> */}
