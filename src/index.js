@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './modules/modal';
+import rootReducer from './modules/index';
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 console.log(store.getState());
 
 ReactDOM.render(

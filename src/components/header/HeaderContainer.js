@@ -8,7 +8,7 @@ import {changloginvisible, changjoinvisible} from '../../modules/modal';
 
 function HeaderContainer() {
 
-    const singInUp = useSelector((state) => state.singInUp);
+    const singInUp = useSelector((state) => state.modal.singInUp);
     console.log('HeaderContainer-singInUp', singInUp)
     
     const dispatch = useDispatch();

@@ -907,9 +907,10 @@ footer .footer-container #social .social-list .social-list-item .footer-social-l
 
 
 .upload-btn-wrapper input[type=file] {
-  font-size: 100px;
+  width: 153px;
+  height: 37px;
   position: absolute;
-  left: 0;
+  /* left: 0; */
   top: 0;
   opacity: 0;
 }
