@@ -14,5 +14,5 @@ export function addUserAPI(url, user) {
 
 export function selectUserAPI(url, value) {
   console.log("selectUserAPI Start, url : ", url, " user : ", value);
-  return axios.get(API_BASE_URL + url + "?email=", value);
+  return axios.get(API_BASE_URL + url + "?email=" + value);
 }

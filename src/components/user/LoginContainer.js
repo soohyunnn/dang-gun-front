@@ -73,7 +73,6 @@ function LoginContainer() {
     var password1 = join.password;
     var username = join.username;
     var addressnumber = join.addressnumber;
-    var address = join.address;
     var detailaddress = join.detailaddress;
     console.log(
       "email1 : ",
@@ -82,8 +81,6 @@ function LoginContainer() {
       password,
       " username :",
       username,
-      " address : ",
-      address,
       "addressnumber : ",
       addressnumber
     );
@@ -116,10 +113,6 @@ function LoginContainer() {
         alert("우편번호를 입력해주세요.");
         return false;
       }
-      if (address === "") {
-        alert("주소를 입력해주세요.");
-        return false;
-      }
       if (detailaddress === "") {
         alert("상세주소를 입력해주세요.");
         return false;
@@ -146,14 +139,18 @@ function LoginContainer() {
 
   const onCLickAddUser = () => {
     if (valisation(1)) {
-      addUserAPI("/user/save", join);
+      addUserAPI("/users/singup", join).then(function (response) {
+        console.log("addUser-Res", response);
+      });
       //DB 전송 후 input값 초기화
       dispatch(addUser(join));
     }
   };
 
-  const onClickSelectUser = (join) => {
-    dispatch(selectUserAPI(join.email));
+  const onClickSelectUser = () => {
+    selectUserAPI("/users/selectedUser", join.email).then(function (response) {
+      console.log("selectUser-res", response);
+    });
   };
 
   return (

@@ -33,7 +33,6 @@ const initialState = {
     username: "",
     password: "",
     addressnumber: "",
-    address: "",
     detailaddress: "",
     isDaumPost: false,
   },
