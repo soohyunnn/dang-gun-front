@@ -8,7 +8,7 @@ import {
   opendaumpost,
 } from "../../modules/loginJoinInputs";
 import { closemodal } from "../../modules/modal";
-import { addUserAPI } from "../../axios";
+import { addUserAPI, selectUserAPI } from "../../axios";
 import xbutton from "../../img/xbutton.png";
 import DaumPostcode from "react-daum-postcode";
 
@@ -152,6 +152,10 @@ function LoginContainer() {
     }
   };
 
+  const onClickSelectUser = (join) => {
+    dispatch(selectUserAPI(join.email));
+  };
+
   return (
     <div className={singInUp === 0 ? "modal-wrapper-none" : "modal-wrapper"}>
       <div className="login-modal">
@@ -186,7 +190,7 @@ function LoginContainer() {
         ></input>
         <div className={singInUp !== 2 ? "join-input" : "IdCheckButton"}>
           <p>사용가능한 이메일 입니다.</p>
-          <button>중복 확인</button>
+          <button onClick={onClickSelectUser}>중복 확인</button>
         </div>
         <input
           id="username"
