@@ -6,6 +6,7 @@ import {
   addUser,
   loginUser,
   opendaumpost,
+  joinvaluereset,
 } from "../../modules/loginJoinInputs";
 import { closemodal } from "../../modules/modal";
 import { addUserAPI, selectUserAPI } from "../../axios";
@@ -24,6 +25,7 @@ function LoginContainer() {
   const showModal = (value) => {
     if (value === 0) {
       dispatch(closemodal(value));
+      dispatch(joinvaluereset());
     }
   };
 
@@ -66,6 +68,7 @@ function LoginContainer() {
 
   //밸리데이션 값 체크
   const valisation = (value) => {
+    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     var email = login.email;
     var password = login.password;
 
@@ -90,6 +93,10 @@ function LoginContainer() {
         alert("이메일을 입력해주세요.");
         return false;
       }
+      if (!regExp.test(email)) {
+        alert("이메일 형식으로 입력해주세요.");
+        return false;
+      }
       if (password === "") {
         alert("비밀번호를 입력해주세요.");
         return false;
@@ -99,6 +106,10 @@ function LoginContainer() {
       console.log("join 밸리데이션 체크");
       if (email1 === "") {
         alert("이메일을 입력해주세요.");
+        return false;
+      }
+      if (!regExp.test(email1)) {
+        alert("이메일 형식으로 입력해주세요.");
         return false;
       }
       if (username === "") {
@@ -115,6 +126,11 @@ function LoginContainer() {
       }
       if (detailaddress === "") {
         alert("상세주소를 입력해주세요.");
+        return false;
+      }
+      if (document.getElementById("warringmsg").textContent === "") {
+        document.getElementById("warringmsg").textContent =
+          "중복확인을 하세요.";
         return false;
       }
     }
@@ -144,12 +160,24 @@ function LoginContainer() {
       });
       //DB 전송 후 input값 초기화
       dispatch(addUser(join));
+      dispatch(closemodal(0));
+      dispatch(joinvaluereset());
+      alert("회원가입이 완료되었습니다.");
     }
   };
 
   const onClickSelectUser = () => {
     selectUserAPI("/users/selectedUser", join.email).then(function (response) {
       console.log("selectUser-res", response);
+      if (response.data.length === 0) {
+        console.log("X");
+        document.getElementById("warringmsg").textContent =
+          "사용가능한 Email 입니다.";
+      } else {
+        console.log("O");
+        document.getElementById("warringmsg").textContent =
+          "이미 사용중인 Email 입니다.";
+      }
     });
   };
 
@@ -158,7 +186,7 @@ function LoginContainer() {
       <div className="login-modal">
         <div className="close-wrapper">
           <button onClick={() => showModal(0)}>
-            <img src={xbutton}></img>
+            <img alt="닫기버튼" src={xbutton}></img>
           </button>
         </div>
 
@@ -170,6 +198,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="이메일"
           onChange={onLoginChange}
+          value={join.email}
         ></input>
         <input
           id="password"
@@ -177,6 +206,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="패스워드"
           onChange={onLoginChange}
+          value={join.password}
         ></input>
         <input
           id="email"
@@ -184,9 +214,10 @@ function LoginContainer() {
           className={singInUp !== 2 ? "join-input" : ""}
           placeholder="이메일"
           onChange={onJoinChange}
+          value={join.email}
         ></input>
         <div className={singInUp !== 2 ? "join-input" : "IdCheckButton"}>
-          <p>사용가능한 이메일 입니다.</p>
+          <p id="warringmsg"></p>
           <button onClick={onClickSelectUser}>중복 확인</button>
         </div>
         <input
@@ -195,6 +226,7 @@ function LoginContainer() {
           className={singInUp !== 2 ? "join-input" : ""}
           placeholder="닉네임"
           onChange={onJoinChange}
+          value={join.username}
         ></input>
         <input
           id="password"
@@ -202,6 +234,7 @@ function LoginContainer() {
           className={singInUp !== 2 ? "join-input" : ""}
           placeholder="패스워드"
           onChange={onJoinChange}
+          value={join.password}
         ></input>
         <div className="address-inputs">
           <div className="search-address">

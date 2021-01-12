@@ -3,6 +3,7 @@ const INPUT_JOIN_CHANGE = "loginJoinInputs/INPUT_JOIN_CHANGE";
 const ADD_USER = "loginJoinInputs/ADD_USER";
 const LOGIN_USER = "loginJoinInputs/LOGIN_USER";
 const OPEN_DAUM_POST = "loginJoinInputs/OPEN_DAUM_POST";
+const JOIN_VALUE_RESET = "loginJoinInputs/JOIN_VALUE_RESET";
 
 export const inputloginchange = (name, value) => ({
   type: INPUT_LOGIN_CHANGE,
@@ -21,6 +22,7 @@ export const opendaumpost = (name, value) => ({
   name,
   value,
 });
+export const joinvaluereset = () => ({ type: JOIN_VALUE_RESET });
 
 const initialState = {
   login: {
@@ -83,6 +85,14 @@ export default function reducer(state = initialState, action) {
         join: {
           ...state.join,
           [action.name]: action.value,
+        },
+      };
+    }
+    case JOIN_VALUE_RESET: {
+      return {
+        ...state,
+        join: {
+          ...initialState.join,
         },
       };
     }
