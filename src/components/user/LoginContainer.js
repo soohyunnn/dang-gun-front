@@ -167,7 +167,7 @@ function LoginContainer() {
   };
 
   const onClickSelectUser = () => {
-    selectUserAPI("/users/selectedUser", join.email).then(function (response) {
+    selectUserAPI("/users", join.email).then(function (response) {
       console.log("selectUser-res", response);
       if (response.data.length === 0) {
         console.log("X");
