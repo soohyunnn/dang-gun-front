@@ -16,3 +16,13 @@ export function selectUserAPI(url, value) {
   console.log("selectUserAPI Start, url : ", url, " user : ", value);
   return axios.get(API_BASE_URL + url + "?email=" + value);
 }
+
+/**
+ * 게시글등록
+ * @param {*} url
+ * @param {*} Post
+ */
+export function createPostAPI(url, Post) {
+  console.log("createPostAPI Start, url : ", url, " user : ", Post);
+  return axios.post(API_BASE_URL + url, Post);
+}
