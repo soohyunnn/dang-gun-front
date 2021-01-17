@@ -17,6 +17,26 @@ function AddPostContainer() {
 
   const dispatch = useDispatch();
 
+  const validation = () => {
+    let title = post.title;
+    let content = post.content;
+    let price = post.price;
+
+    if (title === "") {
+      alert("제목을 입력해주세요.");
+      return false;
+    }
+    if (price === "") {
+      alert("금액을 입력해주세요.");
+      return false;
+    }
+    if (content === "") {
+      alert("내용을 입력해주세요.");
+      return false;
+    }
+    return true;
+  };
+
   const fileupload = (e) => {
     dispatch(uploadimage(e.target.files));
   };
@@ -29,20 +49,26 @@ function AddPostContainer() {
   const createPost = () => {
     post.userId.id = 7; //TODO: 세션 ID 넣기
     post.userId.username = "test1234"; //TODO: 세션 닉네임 넣기
-    createPostAPI("/boards", post).then((response) => {
-      console.log("createPost-Res", response.status);
-      console.log("file-size", file.length);
-      let formData = new FormData();
-      for (let i = 0; i < file.length; i++) {
-        formData.append("file", file[i]);
-      }
+    if (validation()) {
+      createPostAPI("/boards", post).then((response) => {
+        console.log("createPost-Res", response.status);
 
-      formData.append("id", response.data.id);
-      console.log(file[0]);
-      uploadImageAPI("/image/upload", formData).then((response) => {
-        console.log("uploadImageAPI- Res", response);
+        if (response.status === 200) {
+          console.log("200 SUCCESS");
+          console.log("file-size", file.length);
+          let formData = new FormData();
+          for (let i = 0; i < file.length; i++) {
+            formData.append("file", file[i]);
+          }
+
+          formData.append("id", response.data.id);
+          console.log(file[0]);
+          uploadImageAPI("/image/upload", formData).then((response) => {
+            console.log("uploadImageAPI- Res", response);
+          });
+        }
       });
-    });
+    }
   };
 
   return (

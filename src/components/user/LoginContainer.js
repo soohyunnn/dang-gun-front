@@ -67,16 +67,16 @@ function LoginContainer() {
   };
 
   //밸리데이션 값 체크
-  const valisation = (value) => {
-    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    var email = login.email;
-    var password = login.password;
+  const validation = (value) => {
+    let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    let email = login.email;
+    let password = login.password;
 
-    var email1 = join.email;
-    var password1 = join.password;
-    var username = join.username;
-    var addressnumber = join.addressnumber;
-    var detailaddress = join.detailaddress;
+    let email1 = join.email;
+    let password1 = join.password;
+    let username = join.username;
+    let addressnumber = join.addressnumber;
+    let detailaddress = join.detailaddress;
     console.log(
       "email1 : ",
       email1,
@@ -148,13 +148,13 @@ function LoginContainer() {
   };
 
   const onCLickLoginUser = () => {
-    if (valisation(0)) {
+    if (validation(0)) {
       dispatch(loginUser(login));
     }
   };
 
   const onCLickAddUser = () => {
-    if (valisation(1)) {
+    if (validation(1)) {
       addUserAPI("/users/singup", join).then(function (response) {
         console.log("addUser-Res", response);
       });
