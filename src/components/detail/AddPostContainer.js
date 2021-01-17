@@ -63,7 +63,7 @@ function AddPostContainer() {
 
           formData.append("id", response.data.id);
           console.log(file[0]);
-          uploadImageAPI("/image/upload", formData).then((response) => {
+          uploadImageAPI("/images/upload", formData).then((response) => {
             console.log("uploadImageAPI- Res", response);
           });
         }
