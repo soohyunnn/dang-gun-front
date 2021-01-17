@@ -23,6 +23,20 @@ export function selectUserAPI(url, value) {
  * @param {*} Post
  */
 export function createPostAPI(url, Post) {
-  console.log("createPostAPI Start, url : ", url, " user : ", Post);
+  console.log("createPostAPI Start, url : ", url, " Post : ", Post);
   return axios.post(API_BASE_URL + url, Post);
+}
+
+/**
+ * 이미지등록
+ * @param {*} url
+ * @param {*} data
+ */
+export function uploadImageAPI(url, data) {
+  console.log("uploadImageAPI Start, url : ", url, " file : ", data);
+  return axios.post(API_BASE_URL + url, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
