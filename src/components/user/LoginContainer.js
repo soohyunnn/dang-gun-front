@@ -17,9 +17,9 @@ function LoginContainer() {
   const singInUp = useSelector((state) => state.modal.singInUp);
   const { login, join } = useSelector((state) => state.loginJoinInputs);
 
-  console.log("LoginContainer-singInUp", singInUp);
-  console.log("LoginContainer-login", login);
-  console.log("LoginContainer-join", join);
+  //console.log("LoginContainer-singInUp", singInUp);
+  //console.log("LoginContainer-login", login);
+  //console.log("LoginContainer-join", join);
 
   const dispatch = useDispatch();
   const showModal = (value) => {
@@ -168,13 +168,10 @@ function LoginContainer() {
 
   const onClickSelectUser = () => {
     selectUserAPI("/users", join.email).then(function (response) {
-      console.log("selectUser-res", response);
       if (response.data.length === 0) {
-        console.log("X");
         document.getElementById("warringmsg").textContent =
           "사용가능한 Email 입니다.";
       } else {
-        console.log("O");
         document.getElementById("warringmsg").textContent =
           "이미 사용중인 Email 입니다.";
       }

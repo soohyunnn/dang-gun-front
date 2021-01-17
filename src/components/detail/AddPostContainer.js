@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addpost, inputchange } from "../../modules/postInputs";
+import { inputchange } from "../../modules/postInputs";
+import { createPostAPI } from "../../axios";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 
@@ -10,25 +11,24 @@ function AddPostContainer() {
 
   const dispatch = useDispatch();
 
-  const addPost = (value) => {
-    dispatch(addPost(value));
-  };
-
   const [uploadname, setUploadName] = useState(null);
-  console.log("start", uploadname);
 
   const fileupload = () => {
-    console.log("파일 바꼈다!!");
     let fileObj = document.getElementById("myfile").files[0].name;
-    console.log("fileObj", fileObj);
     setUploadName(fileObj);
-    console.log("change", uploadname);
   };
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    //console.log('name',name);
     dispatch(inputchange(name, value));
+  };
+
+  const createPost = () => {
+    post.userId.id = 7; //TODO: 세션 ID 넣기
+    post.userId.username = "test1234"; //TODO: 세션 닉네임 넣기
+    createPostAPI("/boards", post).then(function (response) {
+      console.log("createPost-Res", response);
+    });
   };
 
   return (
@@ -44,6 +44,7 @@ function AddPostContainer() {
               type="text"
               placeholder="제목을 입력해 주세요."
               onChange={onChange}
+              value={post.title}
             />
             <input
               className="price"
@@ -51,12 +52,14 @@ function AddPostContainer() {
               type="text"
               placeholder="금액을 입력해 주세요."
               onChange={onChange}
+              value={post.price}
             />
             <textarea
               className="content"
               name="content"
               placeholder="내용을 입력하세요."
               onChange={onChange}
+              value={post.content}
             ></textarea>
             <div className="upload-btn-wrapper">
               <div className="upload-name">
@@ -82,7 +85,9 @@ function AddPostContainer() {
               />
             </div>
             <div>
-              <button className="add_button">등록</button>
+              <button type="button" className="add_button" onClick={createPost}>
+                등록
+              </button>
             </div>
           </section>
         </form>
