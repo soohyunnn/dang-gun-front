@@ -10,14 +10,14 @@ function AddPostContainer() {
   const file = useSelector((state) => state.postInputs.file);
   console.log("AddPostContainer", post);
   console.log("AddPostContainer", file);
+  let fileObj = "";
+  for (let i = 0; i < file.length; i++) {
+    fileObj += file[i].name + ". ";
+  }
 
   const dispatch = useDispatch();
 
-  const [uploadname, setUploadName] = useState(null);
-
   const fileupload = (e) => {
-    let fileObj = document.getElementById("myfile").files[0].name;
-    setUploadName(fileObj);
     dispatch(uploadimage(e.target.files));
   };
 
@@ -78,14 +78,11 @@ function AddPostContainer() {
             <div className="upload-btn-wrapper">
               <div className="upload-name">
                 <input
-                  value={
-                    uploadname != null
-                      ? uploadname
-                      : "이미지를 업로드 해주세요."
-                  }
+                  id="filename"
+                  value={fileObj !== "" ? fileObj : "이미지를 업로드 해주세요."}
                   disabled
                 ></input>
-                <button className={uploadname != null ? "" : "delete-button"}>
+                <button className={fileObj !== "" ? "" : "delete-button"}>
                   X
                 </button>
               </div>
