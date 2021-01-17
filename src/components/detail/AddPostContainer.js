@@ -24,9 +24,11 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.userId.id = 1; //TODO: 세션 ID 넣기
-    post.userId.username = "soo"; //TODO: 세션 닉네임 넣기
-    createPostAPI("/boards", post);
+    post.userId.id = 7; //TODO: 세션 ID 넣기
+    post.userId.username = "test1234"; //TODO: 세션 닉네임 넣기
+    createPostAPI("/boards", post).then(function (response) {
+      console.log("createPost-Res", response);
+    });
   };
 
   return (
