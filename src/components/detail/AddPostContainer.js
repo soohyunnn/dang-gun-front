@@ -89,8 +89,8 @@ function AddPostContainer() {
             <input
               className="price"
               name="price"
-              type="text"
-              placeholder="금액을 입력해 주세요."
+              type="number"
+              placeholder="금액을 입력해 주세요.(숫자만 입력가능)"
               onChange={onChange}
               value={post.price}
             />
