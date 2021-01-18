@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { inputchange, uploadimage } from "../../modules/postInputs";
-import { createPostAPI, uploadImageAPI } from "../../axios";
+import { createPostAPI } from "../../axios";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 
@@ -17,6 +17,7 @@ function AddPostContainer() {
 
   const dispatch = useDispatch();
 
+  //밸리데이션 값 체크
   const validation = () => {
     let title = post.title;
     let content = post.content;
@@ -58,10 +59,12 @@ function AddPostContainer() {
     for (let i = 0; i < file.length; i++) {
       formData1.append("file", file[i]);
     }
-
-    createPostAPI("/boards", formData1).then((response) => {
-      console.log("createPost-Res", response.status);
-    });
+    if (validation()) {
+      createPostAPI("/boards", formData1).then((response) => {
+        console.log("createPost-Res", response.status);
+        alert("게시글 등록이 완료되었습니다.");
+      });
+    }
   };
 
   return (
