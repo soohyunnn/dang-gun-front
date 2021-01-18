@@ -16,7 +16,7 @@ const initialState = {
     title: "",
     content: "",
     price: "",
-    userId: {
+    user: {
       id: "",
       username: "",
     },

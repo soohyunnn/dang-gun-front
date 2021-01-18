@@ -22,13 +22,13 @@ export function selectUserAPI(url, value) {
  * @param {*} url
  * @param {*} Post
  */
-export function createPostAPI(url, Post) {
-  console.log("createPostAPI Start, url : ", url, " Post : ", Post);
-  return axios.post(API_BASE_URL + url, Post);
+export function createPostAPI(url, data) {
+  console.log("createPostAPI Start, url : ", url, " Post : ", data);
+  return axios.post(API_BASE_URL + url, data);
 }
 
 /**
- * 이미지등록
+ * 이미지등록  => 사용 X, 나중에 삭제
  * @param {*} url
  * @param {*} data
  */

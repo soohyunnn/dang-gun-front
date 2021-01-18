@@ -47,28 +47,21 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.userId.id = 7; //TODO: 세션 ID 넣기
-    post.userId.username = "test1234"; //TODO: 세션 닉네임 넣기
-    if (validation()) {
-      createPostAPI("/boards", post).then((response) => {
-        console.log("createPost-Res", response.status);
-
-        if (response.status === 200) {
-          console.log("200 SUCCESS");
-          console.log("file-size", file.length);
-          let formData = new FormData();
-          for (let i = 0; i < file.length; i++) {
-            formData.append("file", file[i]);
-          }
-
-          formData.append("id", response.data.id);
-          console.log(file[0]);
-          uploadImageAPI("/images/upload", formData).then((response) => {
-            console.log("uploadImageAPI- Res", response);
-          });
-        }
-      });
+    post.user.id = 7; //TODO: 세션 ID 넣기
+    post.user.username = "test1234"; //TODO: 세션 닉네임 넣기
+    let formData1 = new FormData();
+    formData1.append("title", post.title);
+    formData1.append("content", post.content);
+    formData1.append("price", post.price);
+    formData1.append("userID", post.user.id);
+    formData1.append("userName", post.user.username);
+    for (let i = 0; i < file.length; i++) {
+      formData1.append("file", file[i]);
     }
+
+    createPostAPI("/boards", formData1).then((response) => {
+      console.log("createPost-Res", response.status);
+    });
   };
 
   return (
