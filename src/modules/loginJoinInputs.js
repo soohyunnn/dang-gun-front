@@ -34,8 +34,8 @@ const initialState = {
     email: "",
     username: "",
     password: "",
-    addressnumber: "",
-    detailaddress: "",
+    addressNumber: "",
+    detailAddress: "",
     isDaumPost: false,
   },
 };

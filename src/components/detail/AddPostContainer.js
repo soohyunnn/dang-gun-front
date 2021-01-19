@@ -48,8 +48,8 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.user.id = 7; //TODO: 세션 ID 넣기
-    post.user.username = "test1234"; //TODO: 세션 닉네임 넣기
+    post.user.id = 5; //TODO: 세션 ID 넣기
+    post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     let formData1 = new FormData();
     formData1.append("title", post.title);
     formData1.append("content", post.content);
