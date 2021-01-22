@@ -43,7 +43,7 @@ function HeaderContainer() {
               />
               <a>
                 <img
-                  class="fixed-search-icon"
+                  className="fixed-search-icon"
                   alt="Search"
                   src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/search-icon-7008edd4f9aaa32188f55e65258f1c1905d7a9d1a3ca2a07ae809b5535380f14.svg"
                 />

@@ -9,7 +9,7 @@ function App() {
     <>
       <div className="App">
         <Route path="/" component={MainContainer} exact></Route>
-        <Route path="/detail" component={DetatilContainer} exact></Route>
+        <Route path="/posts/:id" component={DetatilContainer} exact></Route>
         <Route path="/post/create" component={AddPostContainer} exact></Route>
       </div>
     </>

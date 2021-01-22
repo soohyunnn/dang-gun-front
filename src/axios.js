@@ -28,15 +28,10 @@ export function createPostAPI(url, data) {
 }
 
 /**
- * 이미지등록  => 사용 X, 나중에 삭제
- * @param {*} url
- * @param {*} data
+ * 게시글 전체 조회
+ * @param {} url
  */
-export function uploadImageAPI(url, data) {
-  console.log("uploadImageAPI Start, url : ", url, " file : ", data);
-  return axios.post(API_BASE_URL + url, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+export function selectAllPostAPI(url) {
+  console.log("createPostAPI Start, url : ", url);
+  return axios.get(API_BASE_URL + url);
 }
