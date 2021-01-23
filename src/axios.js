@@ -22,6 +22,7 @@ export function selectUserAPI(url, value) {
  * @param {*} url
  * @param {*} Post
  */
+
 export function createPostAPI(url, data) {
   console.log("createPostAPI Start, url : ", url, " Post : ", data);
   return axios.post(API_BASE_URL + url, data);

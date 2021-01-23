@@ -51,16 +51,12 @@ function AddPostContainer() {
     post.user.id = 5; //TODO: 세션 ID 넣기
     post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     let formData1 = new FormData();
-    formData1.append("title", post.title);
-    formData1.append("content", post.content);
-    formData1.append("price", post.price);
-    formData1.append("userID", post.user.id);
-    formData1.append("userName", post.user.username);
+    formData1.append("post", JSON.stringify(post));
     for (let i = 0; i < file.length; i++) {
       formData1.append("file", file[i]);
     }
     if (validation()) {
-      createPostAPI("/post", formData1).then((response) => {
+      createPostAPI("/posts", formData1).then((response) => {
         console.log("createPost-Res", response.status);
         alert("게시글 등록이 완료되었습니다.");
       });
