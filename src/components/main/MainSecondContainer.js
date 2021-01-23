@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function MainThirdContainer() {
   return (
@@ -15,10 +16,12 @@ function MainThirdContainer() {
             동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요
           </p>
           <div className="home-buttons">
-            <a className="home-button text-1 text-bold">인기매물 보기</a>
-            <a className="home-button text-1 text-bold ml-3">
+            <Link className="home-button text-1 text-bold" to="">
+              인기매물 보기
+            </Link>
+            <Link className="home-button text-1 text-bold ml-3" to="">
               믿을 수 있는 중고거래
-            </a>
+            </Link>
           </div>
         </div>
       </div>

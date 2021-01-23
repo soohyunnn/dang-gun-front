@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, Route } from "react-router-dom";
-import { selectAllPostAPI } from "../../axios";
-import DetatilContainer from "../detail/DetatilContainer";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllPostAPI, selectOnePostAPI } from "../../axios";
+import { savedetailpost } from "../../modules/postInputs";
 
 function MainFifthContainer() {
   const [postList, setPostList] = useState();
+  const post = useSelector((state) => state.postInputs.detailPost);
+  const dispath = useDispatch();
+
+  console.log("post", post);
 
   useEffect(() => {
     selectAllPostAPI("/posts").then((response) => {
@@ -12,6 +17,14 @@ function MainFifthContainer() {
       setPostList(response.data);
     });
   }, []);
+
+  const onClickDetailPost = (id) => {
+    console.log("onClickDetailPost::", id);
+    selectOnePostAPI(`/posts/${id}`, id).then((response) => {
+      //console.log("selectOnePostAPI-Res", response.data);
+      dispath(savedetailpost(response.data));
+    });
+  };
 
   console.log("postList", postList);
   return (
@@ -29,11 +42,12 @@ function MainFifthContainer() {
                     className="card-link"
                     to={`/posts/${post.id}`}
                     key={post.id}
+                    onClick={() => onClickDetailPost(post.id)}
                   >
                     <div className="card-photo ">
                       <img
                         alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형"
-                        src="https://dang-gun-project.s3.ap-northeast-2.amazonaws.com/static/%E1%84%8F%E1%85%A1%E1%84%8F%E1%85%A1%E1%84%8B%E1%85%A9.jpeg2021-01-19T22%3A18%3A57.029"
+                        src={post.path}
                       />
                     </div>
                     <div className="card-desc">
@@ -47,9 +61,9 @@ function MainFifthContainer() {
                 </article>
               ))}
           </div>
-          <div class="text-center">
+          <div className="text-center">
             <Link
-              className="text-bold text-black text-m view-more"
+              className="text-bol-d text-black text-m view-more"
               to="/detail"
             >
               인기매물 더 보기

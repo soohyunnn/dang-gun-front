@@ -32,6 +32,26 @@ export function createPostAPI(url, data) {
  * @param {} url
  */
 export function selectAllPostAPI(url) {
-  console.log("createPostAPI Start, url : ", url);
+  console.log("selectAllPostAPI Start, url : ", url);
+  return axios.get(API_BASE_URL + url);
+}
+
+/**
+ * 게시글 상세 조회
+ * @param {*} url
+ * @param {*} id
+ */
+export function selectOnePostAPI(url, id) {
+  console.log("selectOnePostAPI Start, url : ", url, "id: ", id);
+  return axios.get(API_BASE_URL + url);
+}
+
+/**
+ * 게시글에 해당하는 이미지 조회
+ * @param {*} url
+ * @param {*} id
+ */
+export function selectOneImageAPI(url, id) {
+  console.log("selectOneImageAPI Start, url : ", url, "id: ", id);
   return axios.get(API_BASE_URL + url);
 }

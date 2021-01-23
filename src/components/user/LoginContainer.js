@@ -63,8 +63,8 @@ function LoginContainer() {
     // document.getElementById('detailaddress').value = fullAddress
     dispatch(opendaumpost("isDaumPost", false));
 
-    console.log("fullAddress", fullAddress);
-    console.log("zoneCodes", zoneCodes);
+    //console.log("fullAddress", fullAddress);
+    //console.log("zoneCodes", zoneCodes);
   };
 
   //밸리데이션 값 체크
@@ -239,13 +239,19 @@ function LoginContainer() {
         <div className="address-inputs">
           <div className="search-address">
             <input
+              className={singInUp !== 2 ? "join-input" : ""}
               id="addressnumber"
               name="addressnumber"
               placeholder="5자리"
               onChange={onJoinChange}
               value={join.addressNumber}
             ></input>{" "}
-            <button onClick={handleOpenPost}>우편번호</button>
+            <button
+              className={singInUp !== 2 ? "join-input" : ""}
+              onClick={handleOpenPost}
+            >
+              우편번호
+            </button>
           </div>
           <input
             id="detailaddress"

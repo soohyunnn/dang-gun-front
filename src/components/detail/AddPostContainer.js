@@ -60,7 +60,7 @@ function AddPostContainer() {
       formData1.append("file", file[i]);
     }
     if (validation()) {
-      createPostAPI("/boards", formData1).then((response) => {
+      createPostAPI("/post", formData1).then((response) => {
         console.log("createPost-Res", response.status);
         alert("게시글 등록이 완료되었습니다.");
       });
