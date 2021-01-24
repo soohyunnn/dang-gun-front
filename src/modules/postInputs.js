@@ -26,10 +26,7 @@ const initialState = {
     title: "",
     content: "",
     price: "",
-    user: {
-      id: "",
-      username: "",
-    },
+    userId: "",
   },
   file: {},
   id: "",
