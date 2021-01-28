@@ -29,6 +29,16 @@ export function createPostAPI(url, data) {
 }
 
 /**
+ * 게시글수정
+ * @param {*} url
+ * @param {*} data
+ */
+export function updatePostAPI(url, data) {
+  console.log("updatePostAPI Start, url : ", url, " Post : ", data);
+  return axios.put(API_BASE_URL + url, data);
+}
+
+/**
  * 게시글 전체 조회
  * @param {} url
  */

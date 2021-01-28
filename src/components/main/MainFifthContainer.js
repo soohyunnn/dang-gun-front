@@ -7,7 +7,7 @@ import { savedetailpost } from "../../modules/postInputs";
 function MainFifthContainer() {
   const [postList, setPostList] = useState();
   const post = useSelector((state) => state.postInputs.detailPost);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   console.log("post", post);
 
@@ -21,8 +21,8 @@ function MainFifthContainer() {
   const onClickDetailPost = (id) => {
     console.log("onClickDetailPost::", id);
     selectOnePostAPI(`/posts/${id}`, id).then((response) => {
-      //console.log("selectOnePostAPI-Res", response.data);
-      dispath(savedetailpost(response.data));
+      console.log("selectOnePostAPI-Res", response.data);
+      dispatch(savedetailpost(response.data));
     });
   };
 

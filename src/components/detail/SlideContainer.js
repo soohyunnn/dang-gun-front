@@ -39,7 +39,7 @@ const ItemSlider = styled.div`
   }
 `;
 
-function SlideContainer() {
+function SlideContainer({ id }) {
   const settings = {
     arrows: true,
     dots: true,
@@ -55,16 +55,13 @@ function SlideContainer() {
   }));
 
   const dispatch = useDispatch();
-  //console.log("SlideContainer::-post", post);
-  //console.log("SlideContainer::", images);
 
   useEffect(() => {
-    console.log("id", post.id);
-    selectOneImageAPI(`/images/${post.id}`, post.id).then((response) => {
+    selectOneImageAPI(`/images/${id}`, post.id).then((response) => {
       //console.log("selectOneImageAPI-Res", response.data);
       dispatch(saveimage(response.data));
     });
-  }, [post]);
+  }, [id]);
 
   return (
     <ItemSlider>

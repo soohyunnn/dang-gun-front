@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 import SlideContainer from "./SlideContainer";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function DetatilContainer() {
   const post = useSelector((state) => state.postInputs.detailPost);
-  //console.log("DetatilContainer", post);
+  useEffect(() => {
+    console.log("DetatilContainer", post);
+  });
 
   return (
     <>
@@ -16,7 +19,7 @@ function DetatilContainer() {
         <section id="article-images">
           <h3 className="hide">이미지</h3>
           <div id="image-slider">
-            <SlideContainer></SlideContainer>
+            <SlideContainer id={post.id}></SlideContainer>
           </div>
         </section>
         <section id="article-profile">
@@ -59,6 +62,12 @@ function DetatilContainer() {
           <div id="article-detail">
             <p>{post.content}</p>
             <p id="article-counts">{`채팅 0 ∙ 관심 ${post.likeCnt} ∙ 조회 ${post.viewCnt}`}</p>
+            <div className="modified">
+              <Link to={`/update/${post.id}`}>
+                <button className="modifiedbtn">수정</button>
+              </Link>
+              <button className="modifiedbtn">삭제</button>
+            </div>
           </div>
         </section>
       </article>

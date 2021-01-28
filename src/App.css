@@ -566,6 +566,21 @@ footer
 }
 
 /*Detail Page*/
+.modified {
+  display: flex;
+  justify-content: flex-end;
+}
+.modifiedbtn {
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+  background: white;
+  cursor: pointer;
+  padding: 9px;
+  margin-left: 10px;
+}
+
 #content {
   padding-bottom: 0;
 }
@@ -789,7 +804,7 @@ footer
   letter-spacing: -0.6px;
 }
 
-#article-description #article-detail {
+#article-description #articlail {
   margin-bottom: 16px;
   margin-top: 8px;
 }
