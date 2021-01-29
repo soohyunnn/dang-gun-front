@@ -7,8 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { changloginvisible, changjoinvisible } from "../../modules/modal";
 
 function HeaderContainer() {
-  const singInUp = useSelector((state) => state.modal.singInUp);
+  //const singInUp = useSelector((state) => state.modal.singInUp);
+  const logincheck = localStorage.getItem("logincheck");
   //console.log("HeaderContainer-singInUp", singInUp);
+  console.log("HeaderContainer-singInUp", logincheck);
 
   const dispatch = useDispatch();
   const showModal = (value) => {
@@ -18,6 +20,15 @@ function HeaderContainer() {
     if (value === 2) {
       dispatch(changjoinvisible(value));
     }
+  };
+
+  //로그아웃시 모든 쿠키 삭제
+  const logout = () => {
+    console.log("login");
+    localStorage.removeItem("authenticatedUser");
+    localStorage.removeItem("token");
+    localStorage.removeItem("logincheck");
+    window.location.replace("/");
   };
 
   return (
@@ -51,14 +62,26 @@ function HeaderContainer() {
             </div>
 
             <div className="Appdownload">
-              <button className="login" onClick={() => showModal(1)}>
-                <img
-                  className="fixed-apple-store"
-                  alt="App Store"
-                  src={loginPath}
-                />
-                <div>Login</div>
-              </button>
+              {!logincheck ? (
+                <button className="login" onClick={() => showModal(1)}>
+                  <img
+                    className="fixed-apple-store"
+                    alt="App Store"
+                    src={loginPath}
+                  />
+                  <div>Login</div>
+                </button>
+              ) : (
+                <button className="logout" onClick={() => logout()}>
+                  <img
+                    className="fixed-apple-store"
+                    alt="App Store"
+                    src={loginPath}
+                  />
+                  <div>Logout</div>
+                </button>
+              )}
+
               <button className="join" onClick={() => showModal(2)}>
                 <img
                   className="fixed-google-play"

@@ -73,7 +73,8 @@ header .search {
 }
 
 .login,
-.join {
+.join,
+.logout {
   display: flex;
   border: 1px solid #e9ecef;
   border-radius: 5px;
@@ -83,14 +84,17 @@ header .search {
   cursor: pointer;
 }
 .login img,
-.join img {
+.join img,
+.logout img {
   width: 21px;
 }
 
 .login img,
 .login div,
 .join img,
-.join div {
+.join div,
+.logout img,
+.logout div {
   margin-top: 3px;
   padding: 10px;
   display: inline-block;

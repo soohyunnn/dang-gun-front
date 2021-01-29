@@ -40,6 +40,11 @@ const ItemSlider = styled.div`
 `;
 
 function SlideContainer({ id }) {
+  console.log("id", id);
+  localStorage.setItem("id", id);
+  const localId = localStorage.getItem("id");
+  console.log("localId", localId);
+
   const settings = {
     arrows: true,
     dots: true,

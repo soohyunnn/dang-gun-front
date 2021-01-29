@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAllPostAPI, selectOnePostAPI } from "../../axios";
 import { savedetailpost } from "../../modules/postInputs";
+import axios from "axios";
 
 function MainFifthContainer() {
   const [postList, setPostList] = useState();
@@ -10,8 +11,23 @@ function MainFifthContainer() {
   const dispatch = useDispatch();
 
   console.log("post", post);
+  const token = localStorage.getItem("token");
+  console.log("token", token);
 
   useEffect(() => {
+    axios.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers["Authorization"] = "Bearer " + token;
+        }
+        // config.headers['Content-Type'] = 'application/json';
+        return config;
+      },
+      (error) => {
+        Promise.reject(error);
+      }
+    );
     selectAllPostAPI("/posts").then((response) => {
       //console.log("selectAllPostAPI-Res", response.data);
       setPostList(response.data);

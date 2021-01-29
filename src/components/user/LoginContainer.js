@@ -9,7 +9,7 @@ import {
   joinvaluereset,
 } from "../../modules/loginJoinInputs";
 import { closemodal } from "../../modules/modal";
-import { addUserAPI, selectUserAPI } from "../../axios";
+import { addUserAPI, selectUserAPI, loginUserAPI } from "../../axios";
 import xbutton from "../../img/xbutton.png";
 import DaumPostcode from "react-daum-postcode";
 
@@ -18,7 +18,7 @@ function LoginContainer() {
   const { login, join } = useSelector((state) => state.loginJoinInputs);
 
   //console.log("LoginContainer-singInUp", singInUp);
-  //console.log("LoginContainer-login", login);
+  console.log("LoginContainer-login", login);
   //console.log("LoginContainer-join", join);
 
   const dispatch = useDispatch();
@@ -148,9 +148,28 @@ function LoginContainer() {
     dispatch(inputjoinchange(name, value));
   };
 
+  //토근정보랑 유저아이디를 logalStorage에 저장
+  const registerSuccessFulLoginForJwt = (username, token) => {
+    console.log("===registerSuccessfulLoginForJwt===");
+    localStorage.setItem("token", token);
+    localStorage.setItem("authenticatedUser", username);
+  };
+
+  //Token 생성
+  // const createJWTToken = (token) => {
+  //   return "Bearer" + token;
+  // };
+
   const onCLickLoginUser = () => {
     if (validation(0)) {
-      dispatch(loginUser(login));
+      loginUserAPI("/authenticate", login).then(function (response) {
+        console.log("loginUserAPI - res", response.data.token);
+        const token = response.data.token;
+        registerSuccessFulLoginForJwt(login.id, token);
+        dispatch(loginUser(login));
+        localStorage.setItem("logincheck", true);
+        window.location.replace("/");
+      });
     }
   };
 
@@ -198,7 +217,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="이메일"
           onChange={onLoginChange}
-          value={join.email}
+          value={login.email}
         ></input>
         <input
           id="password"
@@ -206,7 +225,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="패스워드"
           onChange={onLoginChange}
-          value={join.password}
+          value={login.password}
         ></input>
         <input
           id="email"

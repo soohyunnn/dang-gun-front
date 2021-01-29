@@ -11,10 +11,24 @@ export function addUserAPI(url, user) {
   console.log("addUserApi Start, url : ", url, " user : ", user);
   return axios.post(API_BASE_URL + url, user);
 }
-
+/**
+ * 중복회원 검사
+ * @param {*} url
+ * @param {*} value
+ */
 export function selectUserAPI(url, value) {
   console.log("selectUserAPI Start, url : ", url, " user : ", value);
   return axios.get(API_BASE_URL + url + "?email=" + value);
+}
+
+/**
+ * 로그인
+ * @param {*} url
+ * @param {*} user
+ */
+export function loginUserAPI(url, user) {
+  console.log("loginUserAPI Start, url : ", url, " user : ", user);
+  return axios.post(API_BASE_URL + url, user);
 }
 
 /**
