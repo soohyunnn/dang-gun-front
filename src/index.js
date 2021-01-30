@@ -6,13 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./modules/index";
-import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
+//import { persistStore } from "redux-persist";
+//import { PersistGate } from "redux-persist/integration/react";
 import { composeWithDevTools } from "redux-devtools-extension"; // 리덕스 개발자 도구
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-const persistor = persistStore(store);
+//const persistor = persistStore(store);
 //console.log(store.getState());
 
 ReactDOM.render(

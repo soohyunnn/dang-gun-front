@@ -2,14 +2,23 @@ import React, { useEffect } from "react";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 import SlideContainer from "./SlideContainer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectOnePostAPI } from "../../axios";
+import { savedetailpost } from "../../modules/postInputs";
 import { Link } from "react-router-dom";
 
-function DetatilContainer() {
+function DetatilContainer({ match }) {
   const post = useSelector((state) => state.postInputs.detailPost);
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    console.log("DetatilContainer", post);
-  });
+    selectOnePostAPI(`/posts/${match.params.id}`, match.params.id).then(
+      (response) => {
+        //console.log("selectOnePostAPI-Res", response.data);
+        dispatch(savedetailpost(response.data));
+      }
+    );
+  }, [dispatch, match.params.id]);
 
   return (
     <>
@@ -19,7 +28,7 @@ function DetatilContainer() {
         <section id="article-images">
           <h3 className="hide">이미지</h3>
           <div id="image-slider">
-            <SlideContainer id={post.id}></SlideContainer>
+            <SlideContainer id={match.params.id}></SlideContainer>
           </div>
         </section>
         <section id="article-profile">

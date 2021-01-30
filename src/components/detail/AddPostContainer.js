@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { inputchange, uploadimage } from "../../modules/postInputs";
 import { createPostAPI } from "../../axios";
@@ -35,6 +35,10 @@ function AddPostContainer() {
       alert("내용을 입력해주세요.");
       return false;
     }
+    if (fileObj === "") {
+      alert("파일을 업로드해주세요.");
+      return false;
+    }
     return true;
   };
 
@@ -48,7 +52,7 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.userId = 5; //TODO: 세션 ID 넣기
+    post.userId = 1; //TODO: 세션 ID 넣기
     //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     let formData1 = new FormData();
     formData1.append("post", JSON.stringify(post));
@@ -59,6 +63,7 @@ function AddPostContainer() {
       createPostAPI("/posts", formData1).then((response) => {
         console.log("createPost-Res", response.status);
         alert("게시글 등록이 완료되었습니다.");
+        window.location.replace("/");
       });
     }
   };

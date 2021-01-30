@@ -18,7 +18,7 @@ function LoginContainer() {
   const { login, join } = useSelector((state) => state.loginJoinInputs);
 
   //console.log("LoginContainer-singInUp", singInUp);
-  console.log("LoginContainer-login", login);
+  //console.log("LoginContainer-login", login);
   //console.log("LoginContainer-join", join);
 
   const dispatch = useDispatch();
@@ -129,11 +129,11 @@ function LoginContainer() {
         alert("상세주소를 입력해주세요.");
         return false;
       }
-      if (document.getElementById("warringmsg").textContent === "") {
-        document.getElementById("warringmsg").textContent =
-          "중복확인을 하세요.";
-        return false;
-      }
+      // if (document.getElementById("warringmsg").textContent === "") {
+      //   document.getElementById("warringmsg").textContent =
+      //     "중복확인을 하세요.";
+      //   return false;
+      // }
     }
     return true;
   };
@@ -151,15 +151,11 @@ function LoginContainer() {
   //토근정보랑 유저아이디를 logalStorage에 저장
   const registerSuccessFulLoginForJwt = (username, token) => {
     console.log("===registerSuccessfulLoginForJwt===");
-    localStorage.setItem("token", token);
-    localStorage.setItem("authenticatedUser", username);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("authenticatedUser", username);
   };
 
-  //Token 생성
-  // const createJWTToken = (token) => {
-  //   return "Bearer" + token;
-  // };
-
+  //로그인
   const onCLickLoginUser = () => {
     if (validation(0)) {
       loginUserAPI("/authenticate", login).then(function (response) {
@@ -167,12 +163,14 @@ function LoginContainer() {
         const token = response.data.token;
         registerSuccessFulLoginForJwt(login.id, token);
         dispatch(loginUser(login));
-        localStorage.setItem("logincheck", true);
+        sessionStorage.setItem("email", login.id);
+        sessionStorage.setItem("logincheck", true);
         window.location.replace("/");
       });
     }
   };
 
+  //회원가입
   const onCLickAddUser = () => {
     if (validation(1)) {
       addUserAPI("/users/signup", join).then(function (response) {

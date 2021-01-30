@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 import loginPath from "../../img/login3.svg";
 import joinPath from "../../img/join.svg";
 import LoginContainer from "../user/LoginContainer";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changloginvisible, changjoinvisible } from "../../modules/modal";
 
 function HeaderContainer() {
-  //const singInUp = useSelector((state) => state.modal.singInUp);
-  const logincheck = localStorage.getItem("logincheck");
-  //console.log("HeaderContainer-singInUp", singInUp);
-  console.log("HeaderContainer-singInUp", logincheck);
+  const logincheck = sessionStorage.getItem("logincheck");
+  //console.log("HeaderContainer-singInUp", logincheck);
 
   const dispatch = useDispatch();
   const showModal = (value) => {
@@ -25,9 +23,9 @@ function HeaderContainer() {
   //로그아웃시 모든 쿠키 삭제
   const logout = () => {
     console.log("login");
-    localStorage.removeItem("authenticatedUser");
-    localStorage.removeItem("token");
-    localStorage.removeItem("logincheck");
+    sessionStorage.removeItem("authenticatedUser");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("logincheck");
     window.location.replace("/");
   };
 

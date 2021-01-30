@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { selectOneImageAPI } from "../../axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveimage } from "../../modules/postInputs";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -40,10 +40,10 @@ const ItemSlider = styled.div`
 `;
 
 function SlideContainer({ id }) {
-  console.log("id", id);
-  localStorage.setItem("id", id);
-  const localId = localStorage.getItem("id");
-  console.log("localId", localId);
+  const [imageList, setImageList] = useState();
+  if (id !== 0) {
+    localStorage.id = id;
+  }
 
   const settings = {
     arrows: true,
@@ -54,34 +54,33 @@ function SlideContainer({ id }) {
     slidesToScroll: 1,
   };
 
-  const { post, images } = useSelector((state) => ({
-    post: state.postInputs.detailPost,
-    images: state.postInputs.images,
-  }));
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    selectOneImageAPI(`/images/${id}`, post.id).then((response) => {
-      //console.log("selectOneImageAPI-Res", response.data);
-      dispatch(saveimage(response.data));
-    });
-  }, [id]);
+    selectOneImageAPI(`/images/${localStorage.id}`, localStorage.id).then(
+      (response) => {
+        //console.log("selectOneImageAPI-Res", response.data);
+        dispatch(saveimage(response.data));
+        setImageList(response.data);
+      }
+    );
+  }, [dispatch]);
 
   return (
     <ItemSlider>
       <div>
         <Slider {...settings}>
-          {images.map((image) => (
-            <div>
-              <h3 className="hide">{image.id}</h3>
-              <img
-                className="landscape"
-                alt={image.name}
-                src={image.path}
-              ></img>
-            </div>
-          ))}
+          {imageList !== undefined &&
+            imageList.map((image) => (
+              <div key="image.id">
+                <h3 className="hide">{image.id}</h3>
+                <img
+                  className="landscape"
+                  alt={image.name}
+                  src={image.path}
+                ></img>
+              </div>
+            ))}
         </Slider>
       </div>
     </ItemSlider>

@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  inputchange,
-  inputdetailchange,
-  uploadimage,
-} from "../../modules/postInputs";
+import { inputdetailchange, uploadimage } from "../../modules/postInputs";
 import { updatePostAPI } from "../../axios";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
@@ -59,7 +55,7 @@ function ModifiedContainer() {
   const onClickUpdatePost = () => {
     const updatePost = {};
 
-    updatePost.userId = 5; //TODO: 세션 ID 넣기
+    updatePost.userId = 1; //TODO: 세션 ID 넣기
     //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     console.log("post", post);
     updatePost.postId = post.id;
@@ -76,6 +72,7 @@ function ModifiedContainer() {
       updatePostAPI("/posts", formData1).then((response) => {
         console.log("updatePostAPI-Res", response.status);
         alert("게시글 수정이 완료되었습니다.");
+        window.history.go(-1);
       });
     }
   };

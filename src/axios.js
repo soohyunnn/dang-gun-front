@@ -2,6 +2,22 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8080";
 
+const token = sessionStorage.getItem("token");
+console.log("token", token);
+axios.interceptors.request.use(
+  (config) => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
+    // config.headers['Content-Type'] = 'application/json';
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
 /**
  * 회원가입
  * @param {*} url

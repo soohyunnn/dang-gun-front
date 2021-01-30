@@ -1,48 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { selectAllPostAPI, selectOnePostAPI } from "../../axios";
-import { savedetailpost } from "../../modules/postInputs";
-import axios from "axios";
+import { selectAllPostAPI } from "../../axios";
 
 function MainFifthContainer() {
   const [postList, setPostList] = useState();
-  const post = useSelector((state) => state.postInputs.detailPost);
-  const dispatch = useDispatch();
-
-  console.log("post", post);
-  const token = localStorage.getItem("token");
-  console.log("token", token);
 
   useEffect(() => {
-    axios.interceptors.request.use(
-      (config) => {
-        const token = localStorage.getItem("token");
-        if (token) {
-          config.headers["Authorization"] = "Bearer " + token;
-        }
-        // config.headers['Content-Type'] = 'application/json';
-        return config;
-      },
-      (error) => {
-        Promise.reject(error);
-      }
-    );
     selectAllPostAPI("/posts").then((response) => {
       //console.log("selectAllPostAPI-Res", response.data);
       setPostList(response.data);
     });
   }, []);
 
-  const onClickDetailPost = (id) => {
-    console.log("onClickDetailPost::", id);
-    selectOnePostAPI(`/posts/${id}`, id).then((response) => {
-      console.log("selectOnePostAPI-Res", response.data);
-      dispatch(savedetailpost(response.data));
-    });
-  };
-
-  console.log("postList", postList);
   return (
     <>
       <section className="home-main-section background-gray">
@@ -58,7 +27,6 @@ function MainFifthContainer() {
                     className="card-link"
                     to={`/posts/${post.id}`}
                     key={post.id}
-                    onClick={() => onClickDetailPost(post.id)}
                   >
                     <div className="card-photo ">
                       <img
