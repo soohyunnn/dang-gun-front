@@ -55,7 +55,7 @@ function ModifiedContainer() {
   const onClickUpdatePost = () => {
     const updatePost = {};
 
-    updatePost.userId = 1; //TODO: 세션 ID 넣기
+    updatePost.userEmail = sessionStorage.getItem("email"); //TODO: 세션 ID 넣기
     //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     console.log("post", post);
     updatePost.postId = post.id;

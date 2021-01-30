@@ -96,3 +96,11 @@ export function selectOneImageAPI(url, id) {
   console.log("selectOneImageAPI Start, url : ", url, "id: ", id);
   return axios.get(API_BASE_URL + url);
 }
+
+export function deletePostAPI(url, data) {
+  console.log("updatePostAPI Start, url : ", url, " Post : ", data);
+
+  return axios.delete(
+    API_BASE_URL + url + "?postId=" + data.id + "&userEmail=" + data.userEmail
+  );
+}

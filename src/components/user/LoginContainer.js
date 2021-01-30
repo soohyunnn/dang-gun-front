@@ -161,9 +161,9 @@ function LoginContainer() {
       loginUserAPI("/authenticate", login).then(function (response) {
         console.log("loginUserAPI - res", response.data.token);
         const token = response.data.token;
-        registerSuccessFulLoginForJwt(login.id, token);
+        registerSuccessFulLoginForJwt(login.email, token);
         dispatch(loginUser(login));
-        sessionStorage.setItem("email", login.id);
+        sessionStorage.setItem("email", login.email);
         sessionStorage.setItem("logincheck", true);
         window.location.replace("/");
       });

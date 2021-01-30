@@ -1,16 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 import SlideContainer from "./SlideContainer";
 import { useSelector, useDispatch } from "react-redux";
-import { selectOnePostAPI } from "../../axios";
+import { selectOnePostAPI, deletePostAPI } from "../../axios";
 import { savedetailpost } from "../../modules/postInputs";
 import { Link } from "react-router-dom";
 
 function DetatilContainer({ match }) {
   const post = useSelector((state) => state.postInputs.detailPost);
-
+  const email = sessionStorage.getItem("email");
+  const [userCheck, setUserCheck] = useState(false);
+  //console.log("email", email);
+  //console.log("post.userName", post.userEmail);
   const dispatch = useDispatch();
+
+  const onClickDeletePost = () => {
+    deletePostAPI(`/posts`, post).then((response) => {
+      console.log("onClickDeletePostAPI-Res", response.data);
+    });
+  };
+
+  useEffect(() => {
+    if (email === post.userEmail) {
+      setUserCheck(true);
+    } else {
+      setUserCheck(false);
+    }
+  }, [email, post.userEmail]);
+
   useEffect(() => {
     selectOnePostAPI(`/posts/${match.params.id}`, match.params.id).then(
       (response) => {
@@ -19,6 +37,8 @@ function DetatilContainer({ match }) {
       }
     );
   }, [dispatch, match.params.id]);
+
+  console.log("userCheck", userCheck);
 
   return (
     <>
@@ -71,12 +91,21 @@ function DetatilContainer({ match }) {
           <div id="article-detail">
             <p>{post.content}</p>
             <p id="article-counts">{`채팅 0 ∙ 관심 ${post.likeCnt} ∙ 조회 ${post.viewCnt}`}</p>
-            <div className="modified">
-              <Link to={`/update/${post.id}`}>
-                <button className="modifiedbtn">수정</button>
-              </Link>
-              <button className="modifiedbtn">삭제</button>
-            </div>
+            {userCheck ? (
+              <div className="modified">
+                <Link to={`/update/${post.id}`}>
+                  <button className="modifiedbtn">수정</button>
+                </Link>
+                <button
+                  className="modifiedbtn"
+                  onClick={() => onClickDeletePost()}
+                >
+                  삭제
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </section>
       </article>

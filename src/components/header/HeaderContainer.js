@@ -8,7 +8,8 @@ import { changloginvisible, changjoinvisible } from "../../modules/modal";
 
 function HeaderContainer() {
   const logincheck = sessionStorage.getItem("logincheck");
-  //console.log("HeaderContainer-singInUp", logincheck);
+  const email = sessionStorage.getItem("email");
+  console.log("HeaderContainer-email", email);
 
   const dispatch = useDispatch();
   const showModal = (value) => {

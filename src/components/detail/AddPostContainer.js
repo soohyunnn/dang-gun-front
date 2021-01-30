@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { inputchange, uploadimage } from "../../modules/postInputs";
 import { createPostAPI } from "../../axios";
@@ -52,7 +52,7 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.userId = 1; //TODO: 세션 ID 넣기
+    post.userEmail = sessionStorage.getItem("email"); //TODO: 세션 ID 넣기
     //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
     let formData1 = new FormData();
     formData1.append("post", JSON.stringify(post));
