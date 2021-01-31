@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = "3.35.9.10:8080";
+const API_BASE_URL = "https://3.35.9.10:8080";
+
+axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 axios.interceptors.request.use(
   (config) => {
