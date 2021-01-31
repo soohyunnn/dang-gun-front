@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://3.35.9.10:8080";
+const API_BASE_URL = "3.35.9.10:8080";
 
 axios.interceptors.request.use(
   (config) => {
@@ -46,9 +46,8 @@ export function loginUserAPI(url, user) {
 /**
  * 게시글등록
  * @param {*} url
- * @param {*} Post
+ * @param {*} data
  */
-
 export function createPostAPI(url, data) {
   return axios.post(API_BASE_URL + url, data);
 }
