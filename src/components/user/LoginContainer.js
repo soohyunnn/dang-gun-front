@@ -9,7 +9,7 @@ import {
   joinvaluereset,
 } from "../../modules/loginJoinInputs";
 import { closemodal } from "../../modules/modal";
-import { addUserAPI, selectUserAPI } from "../../axios";
+import { addUserAPI, selectUserAPI, loginUserAPI } from "../../axios";
 import xbutton from "../../img/xbutton.png";
 import DaumPostcode from "react-daum-postcode";
 
@@ -26,6 +26,7 @@ function LoginContainer() {
     if (value === 0) {
       dispatch(closemodal(value));
       dispatch(joinvaluereset());
+      document.getElementById("warringmsg").textContent = "";
     }
   };
 
@@ -55,28 +56,28 @@ function LoginContainer() {
       fullAddress += extraAddress !== "" ? `${extraAddress})` : "";
     }
 
-    dispatch(opendaumpost("addressnumber", zoneCodes));
-    dispatch(opendaumpost("detailaddress", fullAddress));
+    dispatch(opendaumpost("addressNumber", zoneCodes));
+    dispatch(opendaumpost("detailAddress", fullAddress));
 
     // document.getElementById('detailaddress').value = fullAddress
     // document.getElementById('detailaddress').value = fullAddress
     dispatch(opendaumpost("isDaumPost", false));
 
-    console.log("fullAddress", fullAddress);
-    console.log("zoneCodes", zoneCodes);
+    //console.log("fullAddress", fullAddress);
+    //console.log("zoneCodes", zoneCodes);
   };
 
   //밸리데이션 값 체크
-  const valisation = (value) => {
-    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    var email = login.email;
-    var password = login.password;
+  const validation = (value) => {
+    let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    let email = login.email;
+    let password = login.password;
 
-    var email1 = join.email;
-    var password1 = join.password;
-    var username = join.username;
-    var addressnumber = join.addressnumber;
-    var detailaddress = join.detailaddress;
+    let email1 = join.email;
+    let password1 = join.password;
+    let username = join.username;
+    let addressnumber = join.addressnumber;
+    let detailaddress = join.detailaddress;
     console.log(
       "email1 : ",
       email1,
@@ -128,11 +129,11 @@ function LoginContainer() {
         alert("상세주소를 입력해주세요.");
         return false;
       }
-      if (document.getElementById("warringmsg").textContent === "") {
-        document.getElementById("warringmsg").textContent =
-          "중복확인을 하세요.";
-        return false;
-      }
+      // if (document.getElementById("warringmsg").textContent === "") {
+      //   document.getElementById("warringmsg").textContent =
+      //     "중복확인을 하세요.";
+      //   return false;
+      // }
     }
     return true;
   };
@@ -147,28 +148,47 @@ function LoginContainer() {
     dispatch(inputjoinchange(name, value));
   };
 
+  //토근정보랑 유저아이디를 logalStorage에 저장
+  const registerSuccessFulLoginForJwt = (username, token) => {
+    console.log("===registerSuccessfulLoginForJwt===");
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("authenticatedUser", username);
+  };
+
+  //로그인
   const onCLickLoginUser = () => {
-    if (valisation(0)) {
-      dispatch(loginUser(login));
+    if (validation(0)) {
+      loginUserAPI("/authenticate", login).then(function (response) {
+        console.log("loginUserAPI - res", response.data.token);
+        const token = response.data.token;
+        registerSuccessFulLoginForJwt(login.email, token);
+        dispatch(loginUser(login));
+        sessionStorage.setItem("email", login.email);
+        sessionStorage.setItem("logincheck", true);
+        window.location.replace("/");
+      });
     }
   };
 
+  //회원가입
   const onCLickAddUser = () => {
-    if (valisation(1)) {
-      addUserAPI("/users/singup", join).then(function (response) {
+    if (validation(1)) {
+      addUserAPI("/users/signup", join).then(function (response) {
         console.log("addUser-Res", response);
+        //DB 전송 후 input값 초기화
+        dispatch(addUser(join));
+        dispatch(closemodal(0));
+        dispatch(joinvaluereset());
+        document.getElementById("warringmsg").textContent = "";
+        alert("회원가입이 완료되었습니다.");
       });
-      //DB 전송 후 input값 초기화
-      dispatch(addUser(join));
-      dispatch(closemodal(0));
-      dispatch(joinvaluereset());
-      alert("회원가입이 완료되었습니다.");
     }
   };
 
   const onClickSelectUser = () => {
     selectUserAPI("/users", join.email).then(function (response) {
-      if (response.data.length === 0) {
+      console.log("data", response.data);
+      if (response.data === false) {
         document.getElementById("warringmsg").textContent =
           "사용가능한 Email 입니다.";
       } else {
@@ -195,7 +215,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="이메일"
           onChange={onLoginChange}
-          value={join.email}
+          value={login.email}
         ></input>
         <input
           id="password"
@@ -203,7 +223,7 @@ function LoginContainer() {
           className={singInUp === 2 ? "join-input" : ""}
           placeholder="패스워드"
           onChange={onLoginChange}
-          value={join.password}
+          value={login.password}
         ></input>
         <input
           id="email"
@@ -236,13 +256,19 @@ function LoginContainer() {
         <div className="address-inputs">
           <div className="search-address">
             <input
+              className={singInUp !== 2 ? "join-input" : ""}
               id="addressnumber"
               name="addressnumber"
               placeholder="5자리"
               onChange={onJoinChange}
-              value={join.addressnumber}
+              value={join.addressNumber}
             ></input>{" "}
-            <button onClick={handleOpenPost}>우편번호</button>
+            <button
+              className={singInUp !== 2 ? "join-input" : ""}
+              onClick={handleOpenPost}
+            >
+              우편번호
+            </button>
           </div>
           <input
             id="detailaddress"
@@ -250,7 +276,7 @@ function LoginContainer() {
             className={singInUp !== 2 ? "join-input" : ""}
             placeholder="상세주소"
             onChange={onJoinChange}
-            value={join.detailaddress}
+            value={join.detailAddress}
           ></input>
         </div>
         <div className="Self">

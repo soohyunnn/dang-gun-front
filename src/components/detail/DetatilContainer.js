@@ -1,18 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FooterContainer from "../footer/FooterContainer";
 import HeaderContainer from "../header/HeaderContainer";
 import SlideContainer from "./SlideContainer";
+import { useSelector, useDispatch } from "react-redux";
+import { selectOnePostAPI, deletePostAPI } from "../../axios";
+import { savedetailpost } from "../../modules/postInputs";
+import { Link } from "react-router-dom";
 
-function DetatilContainer() {
+function DetatilContainer({ match }) {
+  const post = useSelector((state) => state.postInputs.detailPost);
+  const email = sessionStorage.getItem("email");
+  const [userCheck, setUserCheck] = useState(false);
+  //console.log("email", email);
+  //console.log("post.userName", post.userEmail);
+  const dispatch = useDispatch();
+
+  const onClickDeletePost = () => {
+    deletePostAPI(`/posts`, post).then((response) => {
+      console.log("onClickDeletePostAPI-Res", response.data);
+    });
+  };
+
+  useEffect(() => {
+    if (email === post.userEmail) {
+      setUserCheck(true);
+    } else {
+      setUserCheck(false);
+    }
+  }, [email, post.userEmail]);
+
+  useEffect(() => {
+    selectOnePostAPI(`/posts/${match.params.id}`, match.params.id).then(
+      (response) => {
+        //console.log("selectOnePostAPI-Res", response.data);
+        dispatch(savedetailpost(response.data));
+      }
+    );
+  }, [dispatch, match.params.id]);
+
+  console.log("userCheck", userCheck);
+
   return (
     <>
       <HeaderContainer></HeaderContainer>
       <article id="content">
-        <h1 className="hide">맥북 에어 2018 MacBook Air 2018 256기가 고급형</h1>
+        <h1 className="hide">{post.title}</h1>
         <section id="article-images">
           <h3 className="hide">이미지</h3>
           <div id="image-slider">
-            <SlideContainer></SlideContainer>
+            <SlideContainer id={match.params.id}></SlideContainer>
           </div>
         </section>
         <section id="article-profile">
@@ -26,8 +62,8 @@ function DetatilContainer() {
                 />
               </div>
               <div id="article-profile-left">
-                <div className="nickname">수혀혀혀혀닝</div>
-                <div className="region-name">인천 미추홀구 도화동</div>
+                <div className="nickname">{post.userName}</div>
+                <div className="region-name">{post.detailaddress}</div>
               </div>
 
               <div id="article-profile-right">
@@ -47,21 +83,29 @@ function DetatilContainer() {
           </div>
         </section>
         <section id="article-description">
-          <h1 id="article-title">
-            맥북 에어 2018 MacBook Air 2018 256기가 고급형
-          </h1>
+          <h1 id="article-title">{post.title}</h1>
           <p id="article-category">
             디지털/가전<time>2시간 전</time>
           </p>
-          <p id="article-price">820,000원</p>
+          <p id="article-price">{post.price}</p>
           <div id="article-detail">
-            <p>
-              맥북 에어 2018 로즈골드 색상입니다. 구매하자마자 커버 씌워놓고
-              거의 사용하지 않아 상태는 최상이구요, 배터리 사이클수도 95회로
-              적은 편입니다. 풀박스구요 파우치 원하신다면 드릴 수 있습니다.
-              직거래 희망하고 쿨거래 네고 가능합니다
-            </p>
-            <p id="article-counts">채팅 0 ∙ 관심 1 ∙ 조회 34</p>
+            <p>{post.content}</p>
+            <p id="article-counts">{`채팅 0 ∙ 관심 ${post.likeCnt} ∙ 조회 ${post.viewCnt}`}</p>
+            {userCheck ? (
+              <div className="modified">
+                <Link to={`/update/${post.id}`}>
+                  <button className="modifiedbtn">수정</button>
+                </Link>
+                <button
+                  className="modifiedbtn"
+                  onClick={() => onClickDeletePost()}
+                >
+                  삭제
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </section>
       </article>

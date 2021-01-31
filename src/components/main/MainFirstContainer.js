@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import addbtPath from "../../img/plus1.svg";
 
 function MainFirstContainer() {
+  const logincheck = sessionStorage.getItem("logincheck");
+
   return (
     <section id="home-main-section-top">
       <div className="home-main-top">
@@ -11,14 +13,29 @@ function MainFirstContainer() {
             당신 근처의
             <br />
             당근마켓
-            <Link to="/post/create" className="addProduct">
-              <img
-                className="fixed-add-product"
-                alt="App Store"
-                src={addbtPath}
-              />
-              <div>상품등록</div>
-            </Link>
+            {logincheck ? (
+              <Link to="/post/create" className="addProduct">
+                <img
+                  className="fixed-add-product"
+                  alt="App Store"
+                  src={addbtPath}
+                />
+                <div>상품등록</div>
+              </Link>
+            ) : (
+              <Link
+                to="/"
+                className="addProduct"
+                onClick={() => alert("로그인 후 사용 가능합니다.")}
+              >
+                <img
+                  className="fixed-add-product"
+                  alt="App Store"
+                  src={addbtPath}
+                />
+                <div>상품등록</div>
+              </Link>
+            )}
           </h1>
 
           <p className="text-m">

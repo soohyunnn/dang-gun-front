@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { selectOneImageAPI } from "../../axios";
+import { useDispatch } from "react-redux";
+import { saveimage } from "../../modules/postInputs";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import left from "../../img/icon-slider-left.svg";
 import right from "../../img/icon-slider-right.svg";
-import img1 from "../../img/macbook.jpg";
-import img2 from "../../img/macbook2.jpg";
 
 const ItemSlider = styled.div`
   .slick-prev:before {
@@ -38,7 +39,12 @@ const ItemSlider = styled.div`
   }
 `;
 
-function SlideContainer() {
+function SlideContainer({ id }) {
+  const [imageList, setImageList] = useState();
+  if (id !== 0) {
+    localStorage.id = id;
+  }
+
   const settings = {
     arrows: true,
     dots: true,
@@ -47,38 +53,34 @@ function SlideContainer() {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    selectOneImageAPI(`/images/${localStorage.id}`, localStorage.id).then(
+      (response) => {
+        //console.log("selectOneImageAPI-Res", response.data);
+        dispatch(saveimage(response.data));
+        setImageList(response.data);
+      }
+    );
+  }, [dispatch]);
+
   return (
     <ItemSlider>
       <div>
         <Slider {...settings}>
-          <div>
-            <h3 className="hide">1</h3>
-            <img
-              className="landscape"
-              alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1"
-              src={img1}
-            ></img>
-          </div>
-          <div>
-            <h3 className="hide">2</h3>
-            <img
-              className="landscape"
-              alt="맥북 에어 2018 MacBook Air 2018 256기가 고급형의 사진 1"
-              src={img2}
-            ></img>
-          </div>
-          <div>
-            <h3 className="hide">3</h3>
-          </div>
-          <div>
-            <h3 className="hide">4</h3>
-          </div>
-          <div>
-            <h3 className="hide">5</h3>
-          </div>
-          <div>
-            <h3 className="hide">6</h3>
-          </div>
+          {imageList !== undefined &&
+            imageList.map((image) => (
+              <div key="image.id">
+                <h3 className="hide">{image.id}</h3>
+                <img
+                  className="landscape"
+                  alt={image.name}
+                  src={image.path}
+                ></img>
+              </div>
+            ))}
         </Slider>
       </div>
     </ItemSlider>
