@@ -59,7 +59,6 @@ function SlideContainer({ id }) {
   useEffect(() => {
     selectOneImageAPI(`/images/${localStorage.id}`, localStorage.id).then(
       (response) => {
-        //console.log("selectOneImageAPI-Res", response.data);
         dispatch(saveimage(response.data));
         setImageList(response.data);
       }

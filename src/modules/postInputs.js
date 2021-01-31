@@ -55,7 +55,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case INPUT_CHANGE:
-      console.log("INPUT_CHANGE::", action.name, action.value);
       return {
         ...state,
         post: {
@@ -64,25 +63,21 @@ export default function reducer(state = initialState, action) {
         },
       };
     case UPLOAD_IMAGE:
-      console.log("UPLOAD_IMAGE::", action.file);
       return {
         ...state,
         file: action.file,
       };
     case SAVE_DETAIL_POST:
-      console.log("SAVE_DETAIL_POST::", action.data);
       return {
         ...state,
         detailPost: action.data,
       };
     case SAVE_IMAGE:
-      console.log("SAVE_IMAGE::", action.data);
       return {
         ...state,
         images: action.data,
       };
     case INPUT_DETAIL_CHANGE:
-      console.log("INPUT_DETAIL_CHANGE::", action.name, action.value);
       return {
         ...state,
         detailPost: {

@@ -7,12 +7,7 @@ import HeaderContainer from "../header/HeaderContainer";
 
 function ModifiedContainer() {
   const post = useSelector((state) => state.postInputs.detailPost);
-  //console.log("id", detailPost.id);
-  //const updatePost = useSelector((state) => state.postInputs.post);
-
   const file = useSelector((state) => state.postInputs.file);
-  console.log("ModifiedContainer-post", post);
-  //console.log("ModifiedContainer-updatePost", updatePost);
 
   let fileObj = "";
   for (let i = 0; i < file.length; i++) {
@@ -55,14 +50,11 @@ function ModifiedContainer() {
   const onClickUpdatePost = () => {
     const updatePost = {};
 
-    updatePost.userEmail = sessionStorage.getItem("email"); //TODO: 세션 ID 넣기
-    //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
-    console.log("post", post);
+    updatePost.userEmail = sessionStorage.getItem("email"); //TODO: 세션 email 넣기
     updatePost.postId = post.id;
     updatePost.title = post.title;
     updatePost.price = post.price;
     updatePost.content = post.content;
-    console.log("updatePost", updatePost);
     let formData1 = new FormData();
     formData1.append("post", JSON.stringify(updatePost));
     for (let i = 0; i < file.length; i++) {
@@ -70,19 +62,11 @@ function ModifiedContainer() {
     }
     if (validation()) {
       updatePostAPI("/posts", formData1).then((response) => {
-        console.log("updatePostAPI-Res", response.status);
         alert("게시글 수정이 완료되었습니다.");
         window.history.go(-1);
       });
     }
   };
-
-  // useEffect(() => {
-  //   selectOnePostAPI(`/posts/${id}`, id).then((response) => {
-  //     console.log("selectOnePostAPI-Res", response.data);
-  //     dispatch(savedetailpost(response.data));
-  //   });
-  // });
 
   return (
     <>

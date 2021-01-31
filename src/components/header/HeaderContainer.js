@@ -8,8 +8,6 @@ import { changloginvisible, changjoinvisible } from "../../modules/modal";
 
 function HeaderContainer() {
   const logincheck = sessionStorage.getItem("logincheck");
-  const email = sessionStorage.getItem("email");
-  console.log("HeaderContainer-email", email);
 
   const dispatch = useDispatch();
   const showModal = (value) => {
@@ -23,7 +21,6 @@ function HeaderContainer() {
 
   //로그아웃시 모든 쿠키 삭제
   const logout = () => {
-    console.log("login");
     sessionStorage.removeItem("authenticatedUser");
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("logincheck");
