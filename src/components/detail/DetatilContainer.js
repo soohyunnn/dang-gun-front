@@ -11,8 +11,7 @@ function DetatilContainer({ match }) {
   const post = useSelector((state) => state.postInputs.detailPost);
   const email = sessionStorage.getItem("email");
   const [userCheck, setUserCheck] = useState(false);
-  //console.log("email", email);
-  //console.log("post.userName", post.userEmail);
+
   const dispatch = useDispatch();
 
   const onClickDeletePost = () => {
@@ -32,7 +31,6 @@ function DetatilContainer({ match }) {
   useEffect(() => {
     selectOnePostAPI(`/posts/${match.params.id}`, match.params.id).then(
       (response) => {
-        //console.log("selectOnePostAPI-Res", response.data);
         dispatch(savedetailpost(response.data));
       }
     );

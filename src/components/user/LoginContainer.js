@@ -17,10 +17,6 @@ function LoginContainer() {
   const singInUp = useSelector((state) => state.modal.singInUp);
   const { login, join } = useSelector((state) => state.loginJoinInputs);
 
-  //console.log("LoginContainer-singInUp", singInUp);
-  //console.log("LoginContainer-login", login);
-  //console.log("LoginContainer-join", join);
-
   const dispatch = useDispatch();
   const showModal = (value) => {
     if (value === 0) {
@@ -58,13 +54,7 @@ function LoginContainer() {
 
     dispatch(opendaumpost("addressNumber", zoneCodes));
     dispatch(opendaumpost("detailAddress", fullAddress));
-
-    // document.getElementById('detailaddress').value = fullAddress
-    // document.getElementById('detailaddress').value = fullAddress
     dispatch(opendaumpost("isDaumPost", false));
-
-    //console.log("fullAddress", fullAddress);
-    //console.log("zoneCodes", zoneCodes);
   };
 
   //밸리데이션 값 체크
@@ -129,11 +119,6 @@ function LoginContainer() {
         alert("상세주소를 입력해주세요.");
         return false;
       }
-      // if (document.getElementById("warringmsg").textContent === "") {
-      //   document.getElementById("warringmsg").textContent =
-      //     "중복확인을 하세요.";
-      //   return false;
-      // }
     }
     return true;
   };
@@ -150,7 +135,6 @@ function LoginContainer() {
 
   //토근정보랑 유저아이디를 logalStorage에 저장
   const registerSuccessFulLoginForJwt = (username, token) => {
-    console.log("===registerSuccessfulLoginForJwt===");
     sessionStorage.setItem("token", token);
     sessionStorage.setItem("authenticatedUser", username);
   };
@@ -158,36 +142,41 @@ function LoginContainer() {
   //로그인
   const onCLickLoginUser = () => {
     if (validation(0)) {
-      loginUserAPI("/authenticate", login).then(function (response) {
-        console.log("loginUserAPI - res", response.data.token);
-        const token = response.data.token;
-        registerSuccessFulLoginForJwt(login.email, token);
-        dispatch(loginUser(login));
-        sessionStorage.setItem("email", login.email);
-        sessionStorage.setItem("logincheck", true);
-        window.location.replace("/");
-      });
+      loginUserAPI("/authenticate", login)
+        .then(function (response) {
+          const token = response.data.token;
+          registerSuccessFulLoginForJwt(login.email, token);
+          dispatch(loginUser(login));
+          sessionStorage.setItem("email", login.email);
+          sessionStorage.setItem("logincheck", true);
+          window.location.replace("/");
+        })
+        .catch((err) => {
+          alert("아이디 비밀번호가 일치하지 않습니다.");
+        });
     }
   };
 
   //회원가입
   const onCLickAddUser = () => {
     if (validation(1)) {
-      addUserAPI("/users/signup", join).then(function (response) {
-        console.log("addUser-Res", response);
-        //DB 전송 후 input값 초기화
-        dispatch(addUser(join));
-        dispatch(closemodal(0));
-        dispatch(joinvaluereset());
-        document.getElementById("warringmsg").textContent = "";
-        alert("회원가입이 완료되었습니다.");
-      });
+      addUserAPI("/users/signup", join)
+        .then(function (response) {
+          //DB 전송 후 input값 초기화
+          dispatch(addUser(join));
+          dispatch(closemodal(0));
+          dispatch(joinvaluereset());
+          document.getElementById("warringmsg").textContent = "";
+          alert("회원가입이 완료되었습니다.");
+        })
+        .catch((err) => {
+          alert("회원가입에 실패하였습니다.");
+        });
     }
   };
 
   const onClickSelectUser = () => {
     selectUserAPI("/users", join.email).then(function (response) {
-      console.log("data", response.data);
       if (response.data === false) {
         document.getElementById("warringmsg").textContent =
           "사용가능한 Email 입니다.";

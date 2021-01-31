@@ -7,7 +7,6 @@ function MainFifthContainer() {
 
   useEffect(() => {
     selectAllPostAPI("/posts").then((response) => {
-      //console.log("selectAllPostAPI-Res", response.data);
       setPostList(response.data);
     });
   }, []);

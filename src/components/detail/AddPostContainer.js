@@ -52,8 +52,7 @@ function AddPostContainer() {
   };
 
   const createPost = () => {
-    post.userEmail = sessionStorage.getItem("email"); //TODO: 세션 ID 넣기
-    //post.user.username = "admin"; //TODO: 세션 닉네임 넣기
+    post.userEmail = sessionStorage.getItem("email"); //TODO: 세션 email 넣기
     let formData1 = new FormData();
     formData1.append("post", JSON.stringify(post));
     for (let i = 0; i < file.length; i++) {

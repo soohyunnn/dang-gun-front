@@ -43,8 +43,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case INPUT_LOGIN_CHANGE:
-      console.log("INPUT_LOGIN_CHANGE", action.name, "::", action.value);
-      console.log("login", state.login);
       return {
         ...state,
         login: {
@@ -53,8 +51,6 @@ export default function reducer(state = initialState, action) {
         },
       };
     case INPUT_JOIN_CHANGE:
-      console.log("INPUT_JOIN_CHANGE", action.name, "::", action.value);
-      console.log("join", state.join);
       return {
         ...state,
         join: {
@@ -63,13 +59,11 @@ export default function reducer(state = initialState, action) {
         },
       };
     case ADD_USER:
-      console.log("ADD_USER", action.user);
       return {
         ...state,
         join: initialState.join,
       };
     case LOGIN_USER: {
-      console.log("LOGIN_USER", action.user);
       return {
         ...state,
         login: {

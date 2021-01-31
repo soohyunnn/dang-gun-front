@@ -20,19 +20,16 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_VISUBLE:
-      console.log("LOGIN_VISUBLE", action.singInUp);
       return {
         ...state,
         singInUp: action.singInUp,
       };
     case JOIN_VISUBLE:
-      console.log("JOIN_VISUBLE", action.singInUp);
       return {
         ...state,
         singInUp: action.singInUp,
       };
     case CLOSE_MODAL:
-      console.log("CLOSE_MODAL", action.singInUp);
       return {
         ...state,
         singInUp: action.singInUp,
