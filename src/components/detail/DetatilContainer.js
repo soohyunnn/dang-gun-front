@@ -16,7 +16,7 @@ function DetatilContainer({ match }) {
 
   const onClickDeletePost = () => {
     deletePostAPI(`/posts`, post).then((response) => {
-      console.log("onClickDeletePostAPI-Res", response.data);
+      window.location.replace("/");
     });
   };
 
