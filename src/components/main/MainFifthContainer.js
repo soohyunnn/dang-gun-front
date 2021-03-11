@@ -16,7 +16,7 @@ function MainFifthContainer() {
       <section className="home-main-section background-gray">
         <div className="home-hot-content">
           <h1 className="home-main-title text-center home-hot-title">
-            중고거래 인기매물
+            중고거래 인기 매물
           </h1>
           <div className="cards-wrap">
             {postList !== undefined &&
